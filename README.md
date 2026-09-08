@@ -1,3 +1,5 @@
+
+---
 # Vending Machine – Vivado FPGA Project
 
 ## 📌 Project Overview
@@ -149,57 +151,7 @@ vending_machine/
     └── vending_machine.xdc
 ```
 
----
 
-## 💻 Verilog Design
-
-The main RTL module is:
-
-```verilog
-module vending_machine (
-    input  wire       clk,
-    input  wire       reset,
-    input  wire       coin_2,
-    input  wire       coin_5,
-    input  wire       coin_10,
-    output reg        product,
-    output reg [4:0]  change,
-    output reg [4:0]  balance
-);
-
-    parameter PRICE = 10;
-
-    always @(posedge clk) begin
-        if (reset) begin
-            balance <= 0;
-            product <= 0;
-            change  <= 0;
-        end
-        else begin
-            product <= 0;
-            change  <= 0;
-
-            // Accept coins
-            if (coin_2)
-                balance <= balance + 2;
-            else if (coin_5)
-                balance <= balance + 5;
-            else if (coin_10)
-                balance <= balance + 10;
-
-            // Dispense product
-            if (balance >= PRICE) begin
-                product <= 1;
-                change  <= balance - PRICE;
-                balance <= 0;
-            end
-        end
-    end
-
-endmodule
-```
-
-> **Note:** The above code is a basic example. For a robust FPGA implementation, coin insertion and dispensing should generally be handled as separate FSM states, especially if physical push buttons are used.
 
 ---
 
@@ -359,51 +311,3 @@ After programming the FPGA, the vending machine should:
 
 ---
 
-## 🔧 Possible Improvements
-
-The project can be extended with:
-
-* Multiple product selections.
-* Different prices for different products.
-* LCD/OLED display for balance and product information.
-* Seven-segment display for showing inserted amount.
-* Additional coin denominations.
-* Coin return/cancel button.
-* Product availability detection.
-* Button debouncing.
-* Clock divider for human-operated inputs.
-* Automatic transaction timeout.
-* Multiple vending slots.
-* Change availability checking.
-
----
-
-## 📚 Concepts Demonstrated
-
-This project demonstrates several important digital-design concepts:
-
-* Verilog HDL
-* Finite State Machines
-* Sequential logic
-* Combinational logic
-* Counters/registers
-* Clocked circuits
-* FPGA synthesis
-* RTL simulation
-* Testbench development
-* Xilinx Vivado workflow
-* XDC pin constraints
-
----
-
-## 👩‍💻 Author
-
-**Vending Machine FPGA Project**
-
-Developed using **Verilog HDL and Xilinx Vivado**.
-
----
-
-## 📄 License
-
-This project is intended for **educational and academic purposes**.
